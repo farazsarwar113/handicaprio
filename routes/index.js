@@ -8,6 +8,7 @@ var adverbs =  require('./adverbs.routes.js');
 var adjective =  require('./adjective.routes.js');
 var determiner =  require('./determiner.routes.js');
 var preposition =  require('./preposition.routes.js');
+var translation = require('./translation.routes.js');
 
 var log = require('tracer').console({format : "{{message}}  - {{file}}:{{line}}"}).log;
 var Dictionary = require('../models/dictionary.model.js');
@@ -24,6 +25,8 @@ module.exports = function (app) {
   router.use('/adjective',adjective);
   router.use('/determiner',determiner);
   router.use('/preposition',preposition);
+
+  router.use('/translation',translation);
 
   app.use('/api', router);
 
