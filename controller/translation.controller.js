@@ -5,6 +5,7 @@ var retext = require('retext');
 var simplify = require('retext-simplify');
 var equality = require('retext-equality');
 var report = require('vfile-reporter');
+var cfg = require('nlp_compromise');
 
 exports.translate = function(req,res){
 	log(req.body);
@@ -30,15 +31,21 @@ exports.translate = function(req,res){
 		log(reasons);
 	}
 	var str = req.body.word;
-	var tokenArray = str.split(/\b(\s)/);
+	var tokenArray = str.split(/\b[ ,;:]+/);
 	log(tokenArray);
 
+	var word = tokenArray.join(" ");
+	log(word);
+	var text = cfg.sentence(word);
+ 	console.log(text.tags());
+ 	var pos = text.tags()
 	res.status(200).json({
 		success: true,
 		message: 'Successfully translated sentence.',
 		data: {
 			warning: reasons,
-			tokens: tokenArray
+			tokens: tokenArray,
+			pos: pos
 		}
 	});
 
