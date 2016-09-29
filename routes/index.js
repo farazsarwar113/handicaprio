@@ -1,5 +1,12 @@
 var express = require('express');
 
+require('dotenv').config();
+var s3 = require( 'multer-storage-s3' );
+var AWS = require('aws-sdk');
+var awsS3 = new AWS.S3();
+var multer = require('multer');
+var mime = require('mime');
+
 var dictionary =  require('./dictionary.routes.js');
 var verbs =  require('./verb.routes.js');
 var noun =  require('./noun.routes.js');
@@ -27,6 +34,8 @@ module.exports = function (app) {
   router.use('/preposition',preposition);
 
   router.use('/translation',translation);
+
+
 
   app.use('/api', router);
 
